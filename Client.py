@@ -1,6 +1,7 @@
 '''
 @author: cheney
 '''
+from IN import AF_INET, SOCK_STREAM
 from cmd import Cmd
 from xmlrpc.client import ServerProxy
 from xmlrpc.server import SimpleXMLRPCServer
@@ -8,17 +9,51 @@ from threading import Thread
 from socket import gethostbyname, gethostname
 import os
 
+class Server():
+    '''
+    Server part of the node
+    '''
+    def __init__(self):
+        '''
+        Constructor
+        '''
+        self.address=gethostbyname(gethostname())
+        self.port=8080
+        self._start()
+
+    def _start(self):
+        '''
+        Start the server part of client.
+        '''
+        try:
+            server = SimpleXMLRPCServer((self.address, self.port))
+            server.register_instance(self)
+        except:
+            self.port+=1
+            self._start()
+        c=Client('http://'+self.address+str(self.port))
+        t = Thread(target=c)
+        t.daemon=False
+        t.start()
+        server.serve_forever()
+
+    def handle(self):
+        '''
+        Used to handle queries.
+        '''
+        return 0
+
 class Client(Cmd):
     '''
     A node in a peer-to-peer network.
     '''
     prompt = '>>'
-    def __init__(self):
+    def __init__(self,url):
         '''
         Constructor of client, used to start the XML-RPC and command line interface.
         '''
+        self.url=url
         Cmd.__init__(self)
-        self._start()
         self._path()
         self._connect()
         self.cmdloop()
@@ -28,29 +63,6 @@ class Client(Cmd):
         # client_url is the URL of the client which has file.
         # directory is the directory where this client save files. 
         # main_server is the centralized server in a peer-to-peer network.
-    def _start(self):
-        '''
-        Start the server part of client
-        '''
-        # Input a post and check.
-        post=input('Input the post of client: ')
-        try:
-            post=int(post)
-        except:
-            print('please input a integer as post.')
-            self._start()
-        self.url='http://'+gethostbyname(gethostname())+':'+str(post)
-        
-        # Start the server part as a new thread.
-        try:
-            s=Server(post)
-            t = Thread(target=s._start)
-            t.daemon=True
-            t.start()
-            print('Input client post successfully.')
-        except:
-            print('The post already be used, please try again.')
-            self._start()
 
     def _path(self):
         '''
@@ -88,16 +100,34 @@ class Client(Cmd):
         '''
         Registration by a user on the system.
         '''
-    
+        user_name = input("Input user name: ")
+        password = input("Input password: ")
+        if self.main_server.registration(user_name, password,self.url ,self.directory):
+            print("Registration success")
+        else:
+            print("The user name is already be used, please try again.")
+
     def do_remove(self,arg):
         '''
         Removal by a user of themselves from the system.
         '''
+        user_name = input("Input user name: ")
+        password = input("Input password: ")
+        if self.main_server.removal(user_name, password):
+            print("Removal success")
+        else:
+            print("The user name or password is wrong, please try again.")
     
     def do_logIn(self,arg):
         '''
         Ability by a user to "log in" from the system.
         '''
+        user_name = input("Input user name: ")
+        password = input("Input password: ")
+        try:
+            print(self.main_server.removal(user_name, password, self.directory))
+        except:
+            print()
         
     def do_logOut(self,arg):
         '''
@@ -124,30 +154,7 @@ class Client(Cmd):
         Test for the connecting with main sever
         '''
         print(self.main_server.hello())
-        
-class Server():
-    '''
-    Server part of the node 
-    '''
-    def __init__(self,post):
-        '''
-        Constructor
-        '''
-        self.post=post
-        
-    def _start(self):
-        '''
-        Start the server part of client.
-        '''
-        server = SimpleXMLRPCServer(("localhost", self.post))
-        server.register_instance(self);
-        server.serve_forever()
-        
-    def handle(self):
-        '''
-        Used to handle queries.
-        '''
-        return 0
+
     
     
         
@@ -155,7 +162,7 @@ def main():
     '''
     Create a client object.
     '''
-    Client()
+    Server()
     
 if __name__ =='__main__':
     main()

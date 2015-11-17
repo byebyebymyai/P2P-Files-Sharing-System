@@ -3,6 +3,7 @@
 '''
 import sqlite3
 from xmlrpc.server import SimpleXMLRPCServer
+from socket import gethostbyname, gethostname
 
 class Server():
     '''
@@ -13,50 +14,70 @@ class Server():
         Constructor of main server used to connect with database which save user's information and start server.
         '''
         # Create a new database if server do not have.
-        conn = sqlite3.connect('example.db')
+        self.database='example.db'
+        conn = sqlite3.connect(self.database)
         try:
-            conn.execute('''CREATE TABLE Users
-                            (user_name TEXT PRIMARY KEY, password TEXT NOT NULL, state BOOLEAN NOT NULL, url TEXT NOT NULL, dir TEXT NOT NULL)''')
+            conn.execute('CREATE TABLE Users (user_name TEXT PRIMARY KEY, password TEXT NOT NULL, state BOOLEAN , url TEXT , dir TEXT )')
             print ('Create database and tables successfully')
+
         except:
             print ('Open database successfully')
         finally:
             conn.close()
         # Start server.
+        self.port = 8000
         self._start()
+        
         
     def _start(self):
         '''
         Start the main server
         '''
-        # Input a post and check.
-        post=input('Input the post of main server:')
-        try:
-            post=int(post)
-        except:
-            print('please input a integer as post.')
-            self._start()
-        
         # Start the server.
         try:
-            server = SimpleXMLRPCServer(("localhost",post))
-            server.register_instance(self);
+            server = SimpleXMLRPCServer((gethostbyname(gethostname()),self.port))
+            server.register_instance(self)
             print ('Start the main server successfully')
+            print("The URL of this server is "+gethostbyname(gethostname())+":"+str(self.port))
             server.serve_forever()
         except:
-            print('The post already be used, please try again.')
+            self.port+=1
             self._start()
     
-    def registration(self):
+    def registration(self, user_name, password, url, dir):
+        '''
+        Registration by a user on the system
+        '''
+        conn = sqlite3.connect(self.database)
+        try:
+            conn.execute('INSERT INTO Users (user_name, password, state, url, dir) VALUES (?, ?, ?, ?, ?)',(user_name, password, True, url, dir))
+            conn.commit()
+            conn.close()
+            return True
+        except:
+            conn.close()
+            return False
+
+    def removal(self,user_name, password):
         '''
         
         '''
-    
-    def removal(self):
-        '''
-        
-        '''
-        
+        conn = sqlite3.connect(self.database)
+        try:
+            cursor = conn.execute("SELECT password FROM Users WHERE user_name = ?",(user_name))
+            row=cursor.fetchone()
+            if row[0] == password:
+                conn.execute('DELETE FROM Users WHERE user_name=? ',(user_name))
+                conn.commit()
+                conn.close()
+                return True
+            else:
+                conn.close()
+                return False
+        except:
+            conn.close()
+            return
+
     def logIn(self):
         '''
         
