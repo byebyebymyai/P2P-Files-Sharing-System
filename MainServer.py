@@ -2,6 +2,7 @@
 @author: cheney
 '''
 import sqlite3
+from xmlrpc.client import ServerProxy
 from xmlrpc.server import SimpleXMLRPCServer
 from socket import gethostbyname, gethostname
 
@@ -19,7 +20,6 @@ class Server():
         try:
             conn.execute('CREATE TABLE Users (user_name TEXT PRIMARY KEY, password TEXT NOT NULL, state BOOLEAN , url TEXT , dir TEXT )')
             print ('Create database and tables successfully')
-
         except:
             print ('Open database successfully')
         finally:
@@ -44,13 +44,13 @@ class Server():
             self.port+=1
             self._start()
     
-    def registration(self, user_name, password, url, dir):
+    def registration(self, user_name, password):
         '''
         Registration by a user on the system
         '''
         conn = sqlite3.connect(self.database)
         try:
-            conn.execute('INSERT INTO Users (user_name, password, state, url, dir) VALUES (?, ?, ?, ?, ?)',(user_name, password, True, url, dir))
+            conn.execute('INSERT INTO Users (user_name, password) VALUES (?, ?)',(user_name, password))
             conn.commit()
             conn.close()
             return True
@@ -60,7 +60,7 @@ class Server():
 
     def removal(self,user_name, password):
         '''
-        
+        Removal by a user on the system
         '''
         conn = sqlite3.connect(self.database)
         try:
@@ -76,22 +76,53 @@ class Server():
                 return False
         except:
             conn.close()
-            return
+            return False
 
-    def logIn(self):
+    def logIn(self,user_name, password,url,dir):
         '''
+        Log in by a user on the system
+        '''
+        conn = sqlite3.connect(self.database)
+        try:
+            cursor = conn.execute("SELECT password FROM Users WHERE user_name = ?",(user_name))
+            row=cursor.fetchone()
+            if row[0] == password:
+                conn.execute('UPDATE Users SET state=?, url=?, dir=? WHERE user_name=? ',(True, url, dir, user_name))
+                conn.commit()
+                conn.close()
+                return True
+            else:
+                conn.close()
+                return False
+        except:
+            conn.close()
+            return False
         
+    def logOut(self,user_name, password):
         '''
+        Log out by a user on the system
+        '''
+        conn = sqlite3.connect(self.database)
+        try:
+            cursor = conn.execute("SELECT password FROM Users WHERE user_name = ?",(user_name))
+            row=cursor.fetchone()
+            if row[0] == password:
+                conn.execute('UPDATE Users SET state=? WHERE user_name=? ',(False, user_name))
+                conn.commit()
+                conn.close()
+                return True
+            else:
+                conn.close()
+                return False
+        except:
+            conn.close()
+            return False
         
-    def logOut(self):
+    def searchFile(self,file_name):
         '''
-        
+        Searching which node has file
         '''
-        
-    def searchFile(self):
-        '''
-        
-        '''
+        c=Client(file_name)
     
     def hello(self):
         '''
@@ -105,24 +136,34 @@ class Client(object):
     classdocs
     '''
 
-    def __init__(self, params):
+    def __init__(self, file_name):
         '''
         Constructor
         '''
+        self.file_name=file_name
 
     def broadcast(self):
         '''
         
         '''
-        
-    def search(self):
+        conn = sqlite3.connect(self.database)
+        try:
+            cursor = conn.execute("SELECT url FROM Users WHERE state = ?",(True))
+            rows=cursor.fetchall()
+            for row in rows:
+                if self.search(row[0]):
+                    return row[0]
+            return False
+        except:
+            conn.close()
+            return False
+    def search(self,url):
         '''
         
         '''
-    def inquire(self):
-        '''
-        
-        '''
+        server=ServerProxy(url)
+        return server.handle
+
 def main():
     '''
     Create a server object.

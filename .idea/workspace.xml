@@ -2,8 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a7495fc9-f0f6-4483-910c-35e95bff0499" name="Default" comment="">
+      <change type="DELETED" beforePath="$PROJECT_DIR$/test.db" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/example.db" afterPath="$PROJECT_DIR$/example.db" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Client.py" afterPath="$PROJECT_DIR$/Client.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/MainServer.py" afterPath="$PROJECT_DIR$/MainServer.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="P2P-Files-Sharing-System.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -17,10 +20,10 @@
   </component>
   <component name="ChangesViewManager" flattened_view="true" show_ignored="false" />
   <component name="CoverageDataManager">
-    <SUITE FILE_PATH="coverage/P2P-Files-Sharing-System$Client.coverage" NAME="Client Coverage Results" MODIFIED="1447781801933" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/P2P-Files-Sharing-System$Client.coverage" NAME="Client Coverage Results" MODIFIED="1447844301355" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/P2P-Files-Sharing-System$textServer.coverage" NAME="textServer Coverage Results" MODIFIED="1447373572230" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/P2P-Files-Sharing-System$textClient.coverage" NAME="textClient Coverage Results" MODIFIED="1447373642326" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/P2P-Files-Sharing-System$MainServer.coverage" NAME="MainServer Coverage Results" MODIFIED="1447781799311" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/P2P-Files-Sharing-System$MainServer.coverage" NAME="MainServer Coverage Results" MODIFIED="1447844299161" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
   <component name="CreatePatchCommitExecutor">
     <option name="PATCH_PATH" value="" />
@@ -31,32 +34,34 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="Client.py" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/Client.py">
+      <file leaf-file-name="MainServer.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/MainServer.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.5346535">
-              <caret line="114" column="44" selection-start-line="114" selection-start-column="44" selection-end-line="114" selection-end-column="44" />
+            <state vertical-scroll-proportion="1.4752475">
+              <caret line="120" column="18" selection-start-line="120" selection-start-column="8" selection-end-line="120" selection-end-column="18" />
               <folding>
-                <element signature="e#24#59#0" expanded="true" />
+                <element signature="e#24#38#0" expanded="true" />
+                <marker date="1447844299000" expanded="true" signature="589:698" placeholder="CREATE TABLE..Users..." />
+                <marker date="1447844299000" expanded="true" signature="1664:1717" placeholder="INSERT INTO ..." />
+                <marker date="1447844299000" expanded="true" signature="2085:2131" placeholder="SELECT passw..Users..." />
+                <marker date="1447844299000" expanded="true" signature="2245:2280" placeholder="DELETE FROM ..." />
+                <marker date="1447844299000" expanded="true" signature="2732:2778" placeholder="SELECT passw..Users..." />
+                <marker date="1447844299000" expanded="true" signature="2892:2948" placeholder="DELETE FROM ..." />
+                <marker date="1447844299000" expanded="true" signature="3418:3464" placeholder="SELECT passw..Users..." />
+                <marker date="1447844299000" expanded="true" signature="3578:3620" placeholder="DELETE FROM ..." />
+                <marker date="1447844299000" expanded="true" signature="4460:4497" placeholder="SELECT url F..Users..." />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MainServer.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/MainServer.py">
+      <file leaf-file-name="Client.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Client.py">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="61" column="11" selection-start-line="61" selection-start-column="11" selection-end-line="61" selection-end-column="11" />
+              <caret line="174" column="37" selection-start-line="174" selection-start-column="37" selection-end-line="174" selection-end-column="37" />
               <folding>
-                <element signature="e#24#38#0" expanded="true" />
-                <marker date="1447781872000" expanded="true" signature="551:660" placeholder="CREATE TABLE..Users..." />
-                <marker date="1447781872000" expanded="true" signature="551:943" placeholder="CREATE TABLE..Users..." />
-                <marker date="1447781872000" expanded="true" signature="1637:1716" placeholder="INSERT INTO ..." />
-                <marker date="1447781872000" expanded="true" signature="1637:1756" placeholder="INSERT INTO ..." />
-                <marker date="1447781872000" expanded="true" signature="2069:2115" placeholder="SELECT passw..Users..." />
-                <marker date="1447781872000" expanded="true" signature="2229:2264" placeholder="DELETE FROM ..." />
-                <marker date="1447781872000" expanded="true" signature="2229:2265" placeholder="INSERT INTO ..." />
+                <element signature="e#24#59#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -497,6 +502,25 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/MainServer.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="e#24#38#0" expanded="true" />
+            <marker date="1447844299000" expanded="true" signature="589:698" placeholder="CREATE TABLE..Users..." />
+            <marker date="1447844299000" expanded="true" signature="1664:1717" placeholder="INSERT INTO ..." />
+            <marker date="1447844299000" expanded="true" signature="2085:2131" placeholder="SELECT passw..Users..." />
+            <marker date="1447844299000" expanded="true" signature="2245:2280" placeholder="DELETE FROM ..." />
+            <marker date="1447844299000" expanded="true" signature="2732:2778" placeholder="SELECT passw..Users..." />
+            <marker date="1447844299000" expanded="true" signature="2892:2948" placeholder="DELETE FROM ..." />
+            <marker date="1447844299000" expanded="true" signature="3418:3464" placeholder="SELECT passw..Users..." />
+            <marker date="1447844299000" expanded="true" signature="3578:3620" placeholder="DELETE FROM ..." />
+            <marker date="1447844299000" expanded="true" signature="4460:4497" placeholder="SELECT url F..Users..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/Client.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -513,13 +537,15 @@
           <caret line="10" column="7" selection-start-line="10" selection-start-column="7" selection-end-line="10" selection-end-column="7" />
           <folding>
             <element signature="e#24#38#0" expanded="true" />
-            <marker date="1447781872000" expanded="true" signature="551:660" placeholder="CREATE TABLE..Users..." />
-            <marker date="1447781872000" expanded="true" signature="551:943" placeholder="CREATE TABLE..Users..." />
-            <marker date="1447781872000" expanded="true" signature="1637:1716" placeholder="INSERT INTO ..." />
-            <marker date="1447781872000" expanded="true" signature="1637:1756" placeholder="INSERT INTO ..." />
-            <marker date="1447781872000" expanded="true" signature="2069:2115" placeholder="SELECT passw..Users..." />
-            <marker date="1447781872000" expanded="true" signature="2229:2264" placeholder="DELETE FROM ..." />
-            <marker date="1447781872000" expanded="true" signature="2229:2265" placeholder="INSERT INTO ..." />
+            <marker date="1447844299000" expanded="true" signature="589:698" placeholder="CREATE TABLE..Users..." />
+            <marker date="1447844299000" expanded="true" signature="1664:1717" placeholder="INSERT INTO ..." />
+            <marker date="1447844299000" expanded="true" signature="2085:2131" placeholder="SELECT passw..Users..." />
+            <marker date="1447844299000" expanded="true" signature="2245:2280" placeholder="DELETE FROM ..." />
+            <marker date="1447844299000" expanded="true" signature="2732:2778" placeholder="SELECT passw..Users..." />
+            <marker date="1447844299000" expanded="true" signature="2892:2948" placeholder="DELETE FROM ..." />
+            <marker date="1447844299000" expanded="true" signature="3418:3464" placeholder="SELECT passw..Users..." />
+            <marker date="1447844299000" expanded="true" signature="3578:3620" placeholder="DELETE FROM ..." />
+            <marker date="1447844299000" expanded="true" signature="4460:4497" placeholder="SELECT url F..Users..." />
           </folding>
         </state>
       </provider>
@@ -540,13 +566,15 @@
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="e#24#38#0" expanded="true" />
-            <marker date="1447781872000" expanded="true" signature="551:660" placeholder="CREATE TABLE..Users..." />
-            <marker date="1447781872000" expanded="true" signature="551:943" placeholder="CREATE TABLE..Users..." />
-            <marker date="1447781872000" expanded="true" signature="1637:1716" placeholder="INSERT INTO ..." />
-            <marker date="1447781872000" expanded="true" signature="1637:1756" placeholder="INSERT INTO ..." />
-            <marker date="1447781872000" expanded="true" signature="2069:2115" placeholder="SELECT passw..Users..." />
-            <marker date="1447781872000" expanded="true" signature="2229:2264" placeholder="DELETE FROM ..." />
-            <marker date="1447781872000" expanded="true" signature="2229:2265" placeholder="INSERT INTO ..." />
+            <marker date="1447844299000" expanded="true" signature="589:698" placeholder="CREATE TABLE..Users..." />
+            <marker date="1447844299000" expanded="true" signature="1664:1717" placeholder="INSERT INTO ..." />
+            <marker date="1447844299000" expanded="true" signature="2085:2131" placeholder="SELECT passw..Users..." />
+            <marker date="1447844299000" expanded="true" signature="2245:2280" placeholder="DELETE FROM ..." />
+            <marker date="1447844299000" expanded="true" signature="2732:2778" placeholder="SELECT passw..Users..." />
+            <marker date="1447844299000" expanded="true" signature="2892:2948" placeholder="DELETE FROM ..." />
+            <marker date="1447844299000" expanded="true" signature="3418:3464" placeholder="SELECT passw..Users..." />
+            <marker date="1447844299000" expanded="true" signature="3578:3620" placeholder="DELETE FROM ..." />
+            <marker date="1447844299000" expanded="true" signature="4460:4497" placeholder="SELECT url F..Users..." />
           </folding>
         </state>
       </provider>
@@ -557,13 +585,15 @@
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="e#24#38#0" expanded="true" />
-            <marker date="1447781872000" expanded="true" signature="551:660" placeholder="CREATE TABLE..Users..." />
-            <marker date="1447781872000" expanded="true" signature="551:943" placeholder="CREATE TABLE..Users..." />
-            <marker date="1447781872000" expanded="true" signature="1637:1716" placeholder="INSERT INTO ..." />
-            <marker date="1447781872000" expanded="true" signature="1637:1756" placeholder="INSERT INTO ..." />
-            <marker date="1447781872000" expanded="true" signature="2069:2115" placeholder="SELECT passw..Users..." />
-            <marker date="1447781872000" expanded="true" signature="2229:2264" placeholder="DELETE FROM ..." />
-            <marker date="1447781872000" expanded="true" signature="2229:2265" placeholder="INSERT INTO ..." />
+            <marker date="1447844299000" expanded="true" signature="589:698" placeholder="CREATE TABLE..Users..." />
+            <marker date="1447844299000" expanded="true" signature="1664:1717" placeholder="INSERT INTO ..." />
+            <marker date="1447844299000" expanded="true" signature="2085:2131" placeholder="SELECT passw..Users..." />
+            <marker date="1447844299000" expanded="true" signature="2245:2280" placeholder="DELETE FROM ..." />
+            <marker date="1447844299000" expanded="true" signature="2732:2778" placeholder="SELECT passw..Users..." />
+            <marker date="1447844299000" expanded="true" signature="2892:2948" placeholder="DELETE FROM ..." />
+            <marker date="1447844299000" expanded="true" signature="3418:3464" placeholder="SELECT passw..Users..." />
+            <marker date="1447844299000" expanded="true" signature="3578:3620" placeholder="DELETE FROM ..." />
+            <marker date="1447844299000" expanded="true" signature="4460:4497" placeholder="SELECT url F..Users..." />
           </folding>
         </state>
       </provider>
@@ -584,13 +614,15 @@
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="e#24#38#0" expanded="true" />
-            <marker date="1447781872000" expanded="true" signature="551:660" placeholder="CREATE TABLE..Users..." />
-            <marker date="1447781872000" expanded="true" signature="551:943" placeholder="CREATE TABLE..Users..." />
-            <marker date="1447781872000" expanded="true" signature="1637:1716" placeholder="INSERT INTO ..." />
-            <marker date="1447781872000" expanded="true" signature="1637:1756" placeholder="INSERT INTO ..." />
-            <marker date="1447781872000" expanded="true" signature="2069:2115" placeholder="SELECT passw..Users..." />
-            <marker date="1447781872000" expanded="true" signature="2229:2264" placeholder="DELETE FROM ..." />
-            <marker date="1447781872000" expanded="true" signature="2229:2265" placeholder="INSERT INTO ..." />
+            <marker date="1447844299000" expanded="true" signature="589:698" placeholder="CREATE TABLE..Users..." />
+            <marker date="1447844299000" expanded="true" signature="1664:1717" placeholder="INSERT INTO ..." />
+            <marker date="1447844299000" expanded="true" signature="2085:2131" placeholder="SELECT passw..Users..." />
+            <marker date="1447844299000" expanded="true" signature="2245:2280" placeholder="DELETE FROM ..." />
+            <marker date="1447844299000" expanded="true" signature="2732:2778" placeholder="SELECT passw..Users..." />
+            <marker date="1447844299000" expanded="true" signature="2892:2948" placeholder="DELETE FROM ..." />
+            <marker date="1447844299000" expanded="true" signature="3418:3464" placeholder="SELECT passw..Users..." />
+            <marker date="1447844299000" expanded="true" signature="3578:3620" placeholder="DELETE FROM ..." />
+            <marker date="1447844299000" expanded="true" signature="4460:4497" placeholder="SELECT url F..Users..." />
           </folding>
         </state>
       </provider>
@@ -611,13 +643,15 @@
           <caret line="19" column="47" selection-start-line="19" selection-start-column="47" selection-end-line="19" selection-end-column="47" />
           <folding>
             <element signature="e#24#38#0" expanded="true" />
-            <marker date="1447781872000" expanded="true" signature="551:660" placeholder="CREATE TABLE..Users..." />
-            <marker date="1447781872000" expanded="true" signature="551:943" placeholder="CREATE TABLE..Users..." />
-            <marker date="1447781872000" expanded="true" signature="1637:1716" placeholder="INSERT INTO ..." />
-            <marker date="1447781872000" expanded="true" signature="1637:1756" placeholder="INSERT INTO ..." />
-            <marker date="1447781872000" expanded="true" signature="2069:2115" placeholder="SELECT passw..Users..." />
-            <marker date="1447781872000" expanded="true" signature="2229:2264" placeholder="DELETE FROM ..." />
-            <marker date="1447781872000" expanded="true" signature="2229:2265" placeholder="INSERT INTO ..." />
+            <marker date="1447844299000" expanded="true" signature="589:698" placeholder="CREATE TABLE..Users..." />
+            <marker date="1447844299000" expanded="true" signature="1664:1717" placeholder="INSERT INTO ..." />
+            <marker date="1447844299000" expanded="true" signature="2085:2131" placeholder="SELECT passw..Users..." />
+            <marker date="1447844299000" expanded="true" signature="2245:2280" placeholder="DELETE FROM ..." />
+            <marker date="1447844299000" expanded="true" signature="2732:2778" placeholder="SELECT passw..Users..." />
+            <marker date="1447844299000" expanded="true" signature="2892:2948" placeholder="DELETE FROM ..." />
+            <marker date="1447844299000" expanded="true" signature="3418:3464" placeholder="SELECT passw..Users..." />
+            <marker date="1447844299000" expanded="true" signature="3578:3620" placeholder="DELETE FROM ..." />
+            <marker date="1447844299000" expanded="true" signature="4460:4497" placeholder="SELECT url F..Users..." />
           </folding>
         </state>
       </provider>
@@ -638,13 +672,15 @@
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="e#24#38#0" expanded="true" />
-            <marker date="1447781872000" expanded="true" signature="551:660" placeholder="CREATE TABLE..Users..." />
-            <marker date="1447781872000" expanded="true" signature="551:943" placeholder="CREATE TABLE..Users..." />
-            <marker date="1447781872000" expanded="true" signature="1637:1716" placeholder="INSERT INTO ..." />
-            <marker date="1447781872000" expanded="true" signature="1637:1756" placeholder="INSERT INTO ..." />
-            <marker date="1447781872000" expanded="true" signature="2069:2115" placeholder="SELECT passw..Users..." />
-            <marker date="1447781872000" expanded="true" signature="2229:2264" placeholder="DELETE FROM ..." />
-            <marker date="1447781872000" expanded="true" signature="2229:2265" placeholder="INSERT INTO ..." />
+            <marker date="1447844299000" expanded="true" signature="589:698" placeholder="CREATE TABLE..Users..." />
+            <marker date="1447844299000" expanded="true" signature="1664:1717" placeholder="INSERT INTO ..." />
+            <marker date="1447844299000" expanded="true" signature="2085:2131" placeholder="SELECT passw..Users..." />
+            <marker date="1447844299000" expanded="true" signature="2245:2280" placeholder="DELETE FROM ..." />
+            <marker date="1447844299000" expanded="true" signature="2732:2778" placeholder="SELECT passw..Users..." />
+            <marker date="1447844299000" expanded="true" signature="2892:2948" placeholder="DELETE FROM ..." />
+            <marker date="1447844299000" expanded="true" signature="3418:3464" placeholder="SELECT passw..Users..." />
+            <marker date="1447844299000" expanded="true" signature="3578:3620" placeholder="DELETE FROM ..." />
+            <marker date="1447844299000" expanded="true" signature="4460:4497" placeholder="SELECT url F..Users..." />
           </folding>
         </state>
       </provider>
@@ -687,9 +723,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-5.888889">
           <caret line="498" column="22" selection-start-line="498" selection-start-column="18" selection-end-line="498" selection-end-column="22" />
-          <folding>
-            <element signature="e#1943#1957#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -701,29 +734,31 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/MainServer.py">
+    <entry file="file://$PROJECT_DIR$/Client.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="61" column="11" selection-start-line="61" selection-start-column="11" selection-end-line="61" selection-end-column="11" />
+          <caret line="174" column="37" selection-start-line="174" selection-start-column="37" selection-end-line="174" selection-end-column="37" />
           <folding>
-            <element signature="e#24#38#0" expanded="true" />
-            <marker date="1447781872000" expanded="true" signature="551:660" placeholder="CREATE TABLE..Users..." />
-            <marker date="1447781872000" expanded="true" signature="551:943" placeholder="CREATE TABLE..Users..." />
-            <marker date="1447781872000" expanded="true" signature="1637:1716" placeholder="INSERT INTO ..." />
-            <marker date="1447781872000" expanded="true" signature="1637:1756" placeholder="INSERT INTO ..." />
-            <marker date="1447781872000" expanded="true" signature="2069:2115" placeholder="SELECT passw..Users..." />
-            <marker date="1447781872000" expanded="true" signature="2229:2264" placeholder="DELETE FROM ..." />
-            <marker date="1447781872000" expanded="true" signature="2229:2265" placeholder="INSERT INTO ..." />
+            <element signature="e#24#59#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Client.py">
+    <entry file="file://$PROJECT_DIR$/MainServer.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.5346535">
-          <caret line="114" column="44" selection-start-line="114" selection-start-column="44" selection-end-line="114" selection-end-column="44" />
+        <state vertical-scroll-proportion="1.4752475">
+          <caret line="120" column="18" selection-start-line="120" selection-start-column="8" selection-end-line="120" selection-end-column="18" />
           <folding>
-            <element signature="e#24#59#0" expanded="true" />
+            <element signature="e#24#38#0" expanded="true" />
+            <marker date="1447844299000" expanded="true" signature="589:698" placeholder="CREATE TABLE..Users..." />
+            <marker date="1447844299000" expanded="true" signature="1664:1717" placeholder="INSERT INTO ..." />
+            <marker date="1447844299000" expanded="true" signature="2085:2131" placeholder="SELECT passw..Users..." />
+            <marker date="1447844299000" expanded="true" signature="2245:2280" placeholder="DELETE FROM ..." />
+            <marker date="1447844299000" expanded="true" signature="2732:2778" placeholder="SELECT passw..Users..." />
+            <marker date="1447844299000" expanded="true" signature="2892:2948" placeholder="DELETE FROM ..." />
+            <marker date="1447844299000" expanded="true" signature="3418:3464" placeholder="SELECT passw..Users..." />
+            <marker date="1447844299000" expanded="true" signature="3578:3620" placeholder="DELETE FROM ..." />
+            <marker date="1447844299000" expanded="true" signature="4460:4497" placeholder="SELECT url F..Users..." />
           </folding>
         </state>
       </provider>
