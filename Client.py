@@ -9,79 +9,43 @@ from threading import Thread
 from socket import gethostbyname, gethostname
 import os
 
-class Server():
-    '''
-    Server part of the node
-    '''
-    def __init__(self):
-        '''
-        Constructor
-        '''
-        self.address=gethostbyname(gethostname())
-        self.port=8080
-        self._path()
-        self._start()
 
-    def _path(self):
-        '''
-        Input the path of files
-        '''
-        # Iput the path and check.
-        self.directory=input('Input the path of files which your want to share: ')
-        if os.path.exists(self.directory):
-            print('Input path successfully')
-        else:
-            self._path()
+PORT=8080
+ADDRESS=gethostbyname(gethostname())
+DIRECTORY='./'
 
-    def _start(self):
-        '''
-        Start the server part of client.
-        '''
-        try:
-            server = SimpleXMLRPCServer((self.address, self.port))
-            server.register_instance(self)
-        except:
-            self.port+=1
-            self._start()
-        c=Client('http://'+self.address+str(self.port), self.directory)
-        t = Thread(target=c)
-        t.daemon=False
-        t.start()
-        server.serve_forever()
 
-    # def _fetch(self, file_name):
-    #
-    # def download(self, file_name):
-
-    def handle(self,file_name):
-        '''
-        Used to handle queries.
-        '''
-        try:
-            open(self.directory+file_name)
-            return True
-        except:
-            return False
 
 class Client(Cmd):
     '''
     A node in a peer-to-peer network.
     '''
     prompt = '>>'
-    def __init__(self,url, directory):
+    def __init__(self):
         '''
         Constructor of client, used to start the XML-RPC and command line interface.
         '''
-        self.url=url
-        self.directory=directory
         Cmd.__init__(self)
+        self._path()
         self._connect()
+        self._start()
         self.cmdloop()
-        print('Start P2P client successfully.')
         # url is the URL of this client.
         # main_server_url is the URL of the centralized server in a peer-to-peer network.
         # directory is the directory where this client save files. 
         # main_server is the centralized server in a peer-to-peer network.
+
+    def _path(self):
+        '''
+        Input the path of files
+        '''
+        # Iput the path and check.
+        global DIRECTORY
+        DIRECTORY=input('Input the path of files which your want to share: ')
+        if os.path.exists(DIRECTORY):
+            print('Input path successfully')
+        else:
+            self._path()
             
     def _connect(self):
         '''
@@ -103,6 +67,13 @@ class Client(Cmd):
         except:
             print('Cannot connect with client, please try again.')
             self._connect()
+
+    def _start(self):
+        s=Server()
+        t = Thread(target=s._start)
+        t.daemon=True
+        t.start()
+        print('Start P2P client successfully.')
             
     def do_register(self,arg):
         '''
@@ -130,9 +101,13 @@ class Client(Cmd):
         '''
         Ability by a user to "log in" from the system.
         '''
+        global PORT
+        global ADDRESS
+        global DIRECTORY
         user_name = input("Input user name: ")
         password = input("Input password: ")
-        if self.main_server.logIn(user_name, password, self.url, self.directory):
+        if self.main_server.logIn(user_name, password, 'http://'+ADDRESS+':'+str(PORT), DIRECTORY):
+            print('http://'+ADDRESS+':'+str(PORT))
             print("Log in success")
         else:
             print("The user name or password is wrong, please try again.")
@@ -153,11 +128,13 @@ class Client(Cmd):
         Used to make the Node find a file and download it.
         '''
         # client_url is the URL of the client which has file.
-        client_url=self._search()
+        # client_url=self._search()
         # try:
         #     client=ServerProxy(client_url)
         # except:
         #     print("Cannot connect with other client, please try again.")
+
+        print(self.main_server.searchFile(1))
 
         # if client.
 
@@ -172,8 +149,8 @@ class Client(Cmd):
         help. Returns the file as a string.
         '''
         # client_url is the URL of the client which has file.
-        self.main_server.searchFile()
-        return client_url
+        # self.main_server.searchFile()
+        # return client_url
         
     def do_hello(self,arg):
         '''
@@ -182,13 +159,41 @@ class Client(Cmd):
         print(self.main_server.hello())
 
     
-    
+class Server():
+    '''
+    Server part of the node
+    '''
+    def __init__(self):
+        '''
+        Constructor
+        '''
+
+    def _start(self):
+        '''
+        Start the server part of client.
+        '''
+        global PORT
+        global ADDRESS
+
+        try:
+            server = SimpleXMLRPCServer((ADDRESS, PORT))
+            server.register_instance(self)
+            server.serve_forever()
+        except:
+            PORT+=1
+            self._start()
+
+    def handle(self,file_name):
+        '''
+        Used to handle queries.
+        '''
+        return True
         
 def main():
     '''
     Create a client object.
     '''
-    Server()
+    Client()
     
 if __name__ =='__main__':
     main()

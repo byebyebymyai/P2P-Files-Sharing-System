@@ -6,6 +6,8 @@ from xmlrpc.client import ServerProxy
 from xmlrpc.server import SimpleXMLRPCServer
 from socket import gethostbyname, gethostname
 
+DATABASE='example.db'
+
 class Server():
     '''
     A centralized server in a peer-to-peer network.
@@ -15,8 +17,8 @@ class Server():
         Constructor of main server used to connect with database which save user's information and start server.
         '''
         # Create a new database if server do not have.
-        self.database='example.db'
-        conn = sqlite3.connect(self.database)
+        global DATABASE
+        conn = sqlite3.connect(DATABASE)
         try:
             conn.execute('CREATE TABLE Users (user_name TEXT PRIMARY KEY, password TEXT NOT NULL, state BOOLEAN , url TEXT , dir TEXT )')
             print ('Create database and tables successfully')
@@ -24,11 +26,10 @@ class Server():
             print ('Open database successfully')
         finally:
             conn.close()
-        # Start server.
-        self.port = 8000
-        self._start()
-        
-        
+            # Start server.
+            self.port = 8000
+            self._start()
+
     def _start(self):
         '''
         Start the main server
@@ -48,7 +49,8 @@ class Server():
         '''
         Registration by a user on the system
         '''
-        conn = sqlite3.connect(self.database)
+        global DATABASE
+        conn = sqlite3.connect(DATABASE)
         try:
             conn.execute('INSERT INTO Users (user_name, password) VALUES (?, ?)',(user_name, password))
             conn.commit()
@@ -62,7 +64,8 @@ class Server():
         '''
         Removal by a user on the system
         '''
-        conn = sqlite3.connect(self.database)
+        global DATABASE
+        conn = sqlite3.connect(DATABASE)
         try:
             cursor = conn.execute("SELECT password FROM Users WHERE user_name = ?",(user_name))
             row=cursor.fetchone()
@@ -82,7 +85,8 @@ class Server():
         '''
         Log in by a user on the system
         '''
-        conn = sqlite3.connect(self.database)
+        global DATABASE
+        conn = sqlite3.connect(DATABASE)
         try:
             cursor = conn.execute("SELECT password FROM Users WHERE user_name = ?",(user_name))
             row=cursor.fetchone()
@@ -102,7 +106,8 @@ class Server():
         '''
         Log out by a user on the system
         '''
-        conn = sqlite3.connect(self.database)
+        global DATABASE
+        conn = sqlite3.connect(DATABASE)
         try:
             cursor = conn.execute("SELECT password FROM Users WHERE user_name = ?",(user_name))
             row=cursor.fetchone()
@@ -123,6 +128,7 @@ class Server():
         Searching which node has file
         '''
         c=Client(file_name)
+        return c.broadcast()
     
     def hello(self):
         '''
@@ -146,23 +152,26 @@ class Client(object):
         '''
         
         '''
-        conn = sqlite3.connect(self.database)
-        try:
-            cursor = conn.execute("SELECT url FROM Users WHERE state = ?",(True))
-            rows=cursor.fetchall()
-            for row in rows:
-                if self.search(row[0]):
-                    return row[0]
-            return False
-        except:
-            conn.close()
-            return False
+        global DATABASE
+        conn = sqlite3.connect(DATABASE)
+        # try:
+        cursor = conn.execute('SELECT url FROM Users WHERE state = ?',(True))
+        rows=cursor.fetchall()
+        for row in rows:
+            if self.search(row[0]):
+                conn.close()
+                return row[0]
+        conn.close()
+        return False
+        # except:
+        #     conn.close()
+        #     return 11
     def search(self,url):
         '''
         
         '''
-        server=ServerProxy(url)
-        return server.handle
+        client=ServerProxy(url)
+        return client.handle(1)
 
 def main():
     '''
