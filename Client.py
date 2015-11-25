@@ -107,7 +107,6 @@ class Client(Cmd):
         user_name = input("Input user name: ")
         password = input("Input password: ")
         if self.main_server.logIn(user_name, password, 'http://'+ADDRESS+':'+str(PORT), DIRECTORY):
-            print('http://'+ADDRESS+':'+str(PORT))
             print("Log in success")
         else:
             print("The user name or password is wrong, please try again.")
@@ -128,30 +127,27 @@ class Client(Cmd):
         Used to make the Node find a file and download it.
         '''
         # client_url is the URL of the client which has file.
-        # client_url=self._search()
-        # try:
-        #     client=ServerProxy(client_url)
-        # except:
-        #     print("Cannot connect with other client, please try again.")
-
-        print(self.main_server.searchFile(1))
-
-        # if client.
+        file_name=input('Input the file name')
+        client_url=self._search(file_name)
 
     def do_inquire(self,arg):
         '''
         Ability by a user to see what files are available to transfer in the local.
         '''
        
-    def _search(self):
+    def _search(self,file_name):
         '''
         Performs a query for a file, possibly asking other known Nodes for
-        help. Returns the file as a string.
+        help.
         '''
-        # client_url is the URL of the client which has file.
-        # self.main_server.searchFile()
-        # return client_url
-        
+        return self.main_server.searchFile(file_name)
+
+    def _fetch(self,file_name):
+        '''
+        Returns the file as a string.
+        '''
+
+
     def do_hello(self,arg):
         '''
         Test for the connecting with main sever
@@ -187,8 +183,12 @@ class Server():
         '''
         Used to handle queries.
         '''
-        return True
-        
+        global DIRECTORY
+        return os.path.exists(DIRECTORY+file_name)
+
+    def send(self,file_name):
+
+
 def main():
     '''
     Create a client object.

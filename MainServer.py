@@ -91,7 +91,7 @@ class Server():
             cursor = conn.execute("SELECT password FROM Users WHERE user_name = ?",(user_name))
             row=cursor.fetchone()
             if row[0] == password:
-                conn.execute('UPDATE Users SET state=?, url=?, dir=? WHERE user_name=? ',(True, url, dir, user_name))
+                conn.execute('UPDATE Users SET state=CAST("TRUE" as bit), url=?, dir=? WHERE user_name=? ',( url, dir, user_name))
                 conn.commit()
                 conn.close()
                 return True
@@ -112,7 +112,7 @@ class Server():
             cursor = conn.execute("SELECT password FROM Users WHERE user_name = ?",(user_name))
             row=cursor.fetchone()
             if row[0] == password:
-                conn.execute('UPDATE Users SET state=? WHERE user_name=? ',(False, user_name))
+                conn.execute('UPDATE Users SET state=CAST("FALSE" as bit) WHERE user_name=? ',(user_name))
                 conn.commit()
                 conn.close()
                 return True
@@ -154,8 +154,7 @@ class Client(object):
         '''
         global DATABASE
         conn = sqlite3.connect(DATABASE)
-        # try:
-        cursor = conn.execute('SELECT url FROM Users WHERE state = ?',(True))
+        cursor = conn.execute('SELECT url FROM Users WHERE state = CAST("TRUE" as bit)')
         rows=cursor.fetchall()
         for row in rows:
             if self.search(row[0]):
@@ -163,15 +162,13 @@ class Client(object):
                 return row[0]
         conn.close()
         return False
-        # except:
-        #     conn.close()
-        #     return 11
+
     def search(self,url):
         '''
         
         '''
         client=ServerProxy(url)
-        return client.handle(1)
+        return client.handle(self.file_name)
 
 def main():
     '''
