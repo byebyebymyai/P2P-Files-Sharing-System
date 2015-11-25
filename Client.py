@@ -79,23 +79,23 @@ class Client(Cmd):
         '''
         Registration by a user on the system.
         '''
-        user_name = input("Input user name: ")
-        password = input("Input password: ")
+        user_name = input('Input user name: ')
+        password = input('Input password: ')
         if self.main_server.registration(user_name, password):
-            print("Registration success")
+            print('Registration success.')
         else:
-            print("The user name is already be used, please try again.")
+            print('The user name is already be used, please try again.')
 
     def do_remove(self,arg):
         '''
         Removal by a user of themselves from the system.
         '''
-        user_name = input("Input user name: ")
-        password = input("Input password: ")
+        user_name = input('Input user name: ')
+        password = input('Input password: ')
         if self.main_server.removal(user_name, password):
-            print("Removal success")
+            print('Removal success.')
         else:
-            print("The user name or password is wrong, please try again.")
+            print('The user name or password is wrong, please try again.')
     
     def do_logIn(self,arg):
         '''
@@ -104,31 +104,42 @@ class Client(Cmd):
         global PORT
         global ADDRESS
         global DIRECTORY
-        user_name = input("Input user name: ")
-        password = input("Input password: ")
+        user_name = input('Input user name: ')
+        password = input('Input password: ')
         if self.main_server.logIn(user_name, password, 'http://'+ADDRESS+':'+str(PORT), DIRECTORY):
-            print("Log in success")
+            print('Log in success')
         else:
-            print("The user name or password is wrong, please try again.")
+            print('The user name or password is wrong, please try again.')
         
     def do_logOut(self,arg):
         '''
         Ability by a user to "log out" from the system.
         '''
-        user_name = input("Input user name: ")
-        password = input("Input password: ")
+        user_name = input('Input user name: ')
+        password = input('Input password: ')
         if self.main_server.logOut(user_name, password):
-            print("Log out success")
+            print('Log out success')
         else:
-            print("The user name or password is wrong, please try again.")
+            print('The user name or password is wrong, please try again.')
     
     def do_download(self,arg):
         '''
         Used to make the Node find a file and download it.
         '''
         # client_url is the URL of the client which has file.
-        file_name=input('Input the file name')
+        file_name=input('Input the file name: ')
         client_url=self._search(file_name)
+        try :
+            client=ServerProxy(client_url)
+            self._fetch(file_name,client.send(file_name))
+            print('Download success.')
+        except:
+            print('Cannot find file')
+
+    def do_exit(self,arg):
+        '''
+        Exit the client
+        '''
 
     def do_inquire(self,arg):
         '''
@@ -142,11 +153,14 @@ class Client(Cmd):
         '''
         return self.main_server.searchFile(file_name)
 
-    def _fetch(self,file_name):
+    def _fetch(self,file_name,result):
         '''
         Returns the file as a string.
         '''
-
+        global DIRECTORY
+        f=open(DIRECTORY+file_name,'w')
+        f.write(result)
+        f.close()
 
     def do_hello(self,arg):
         '''
@@ -184,10 +198,11 @@ class Server():
         Used to handle queries.
         '''
         global DIRECTORY
-        return os.path.exists(DIRECTORY+file_name)
+        return os.path.isfile(DIRECTORY+file_name)
 
     def send(self,file_name):
-
+        global DIRECTORY
+        return open(DIRECTORY+file_name).read()
 
 def main():
     '''
