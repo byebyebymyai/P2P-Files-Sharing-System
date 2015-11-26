@@ -39,7 +39,8 @@ class Server():
             server = SimpleXMLRPCServer((gethostbyname(gethostname()),self.port))
             server.register_instance(self)
             print ('Start the main server successfully')
-            print("The URL of this server is "+gethostbyname(gethostname())+":"+str(self.port))
+            print('The URL of this server is '+gethostbyname(gethostname())+':'+str(self.port))
+            print('Copy this address to client.')
             server.serve_forever()
         except:
             self.port+=1

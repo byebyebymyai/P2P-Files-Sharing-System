@@ -1,12 +1,12 @@
 '''
 @author: cheney
 '''
-from IN import AF_INET, SOCK_STREAM
 from cmd import Cmd
 from xmlrpc.client import ServerProxy
 from xmlrpc.server import SimpleXMLRPCServer
 from threading import Thread
 from socket import gethostbyname, gethostname
+import sys
 import os
 
 
@@ -14,7 +14,9 @@ PORT=8080
 ADDRESS=gethostbyname(gethostname())
 DIRECTORY='./'
 
-
+LOGIN=False
+USERNAME=None
+PASSWORD=None
 
 class Client(Cmd):
     '''
@@ -104,42 +106,68 @@ class Client(Cmd):
         global PORT
         global ADDRESS
         global DIRECTORY
-        user_name = input('Input user name: ')
-        password = input('Input password: ')
-        if self.main_server.logIn(user_name, password, 'http://'+ADDRESS+':'+str(PORT), DIRECTORY):
-            print('Log in success')
+        global LOGIN
+        global USERNAME
+        global PASSWORD
+        if LOGIN:
+            print('Already log in, please logout first.')
         else:
-            print('The user name or password is wrong, please try again.')
+            user_name = input('Input user name: ')
+            password = input('Input password: ')
+            if self.main_server.logIn(user_name, password, 'http://'+ADDRESS+':'+str(PORT), DIRECTORY):
+                LOGIN=True
+                USERNAME=user_name
+                PASSWORD=password
+                print('Log in success')
+            else:
+                print('The user name or password is wrong, please try again.')
         
     def do_logOut(self,arg):
         '''
         Ability by a user to "log out" from the system.
         '''
-        user_name = input('Input user name: ')
-        password = input('Input password: ')
-        if self.main_server.logOut(user_name, password):
-            print('Log out success')
+        global LOGIN
+        global USERNAME
+        global PASSWORD
+        if LOGIN:
+            if self.main_server.logOut(USERNAME, PASSWORD):
+                LOGIN=False
+                USERNAME=None
+                PASSWORD=None
+                print('Log out success')
+            else:
+                print('The user name or password is wrong, please try again.')
         else:
-            print('The user name or password is wrong, please try again.')
+            print('Did not log in,please log in first ')
     
     def do_download(self,arg):
         '''
         Used to make the Node find a file and download it.
         '''
         # client_url is the URL of the client which has file.
-        file_name=input('Input the file name: ')
-        client_url=self._search(file_name)
-        try :
-            client=ServerProxy(client_url)
-            self._fetch(file_name,client.send(file_name))
-            print('Download success.')
-        except:
-            print('Cannot find file')
+        if LOGIN:
+            file_name=input('Input the file name: ')
+            client_url=self._search(file_name)
+            try :
+                client=ServerProxy(client_url)
+                self._fetch(file_name,client.send(file_name))
+                print('Download success.')
+            except:
+                print('Cannot find file')
+        else:
+            print('Did not log in,please log in first ')
 
     def do_exit(self,arg):
         '''
         Exit the client
         '''
+        global LOGIN
+        global USERNAME
+        global PASSWORD
+        if LOGIN:
+            self.main_server.logOut(USERNAME, PASSWORD)
+        print('Good bye-bye.')
+        sys.exit()
 
     def do_inquire(self,arg):
         '''
@@ -184,7 +212,6 @@ class Server():
         '''
         global PORT
         global ADDRESS
-
         try:
             server = SimpleXMLRPCServer((ADDRESS, PORT))
             server.register_instance(self)
