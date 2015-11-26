@@ -1,4 +1,6 @@
-__author__ = 'cheney'
+'''
+__author__ = 'byebyebymyai'
+'''
 from cmd import Cmd
 from xmlrpc.client import ServerProxy
 from xmlrpc.server import SimpleXMLRPCServer
@@ -65,7 +67,7 @@ class Client(Cmd):
             self.main_server.hello()
             print('Connect with main server successfully.')
         except:
-            print('Cannot connect with client, please try again.')
+            print('Cannot connect with sever, please try again.')
             self._connect()
 
     def _start(self):
@@ -171,6 +173,10 @@ class Client(Cmd):
         '''
         Ability by a user to see what files are available to transfer in the local.
         '''
+        global DIRECTORY
+        files=os.listdir(DIRECTORY)
+        for file in files:
+            print(file)
        
     def _search(self,file_name):
         '''

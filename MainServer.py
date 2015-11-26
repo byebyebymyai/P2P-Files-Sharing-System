@@ -1,4 +1,6 @@
-__author__ = 'cheney'
+'''
+__author__ = 'byebyebymyai'
+'''
 import sqlite3
 from xmlrpc.client import ServerProxy
 from xmlrpc.server import SimpleXMLRPCServer
