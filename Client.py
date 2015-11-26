@@ -1,6 +1,4 @@
-'''
-@author: cheney
-'''
+__author__ = 'cheney'
 from cmd import Cmd
 from xmlrpc.client import ServerProxy
 from xmlrpc.server import SimpleXMLRPCServer
