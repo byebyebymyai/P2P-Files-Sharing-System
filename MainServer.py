@@ -20,7 +20,7 @@ class Server():
         global DATABASE
         conn = sqlite3.connect(DATABASE)
         try:
-            conn.execute('CREATE TABLE Users (user_name TEXT PRIMARY KEY, password TEXT NOT NULL, state BOOLEAN , url TEXT , dir TEXT )')
+            conn.execute('CREATE TABLE Users (user_name TEXT PRIMARY KEY, password TEXT NOT NULL, state BOOLEAN , url TEXT)')
             print ('Create database and tables successfully')
         except:
             print ('Open database successfully')
@@ -82,7 +82,7 @@ class Server():
             conn.close()
             return False
 
-    def logIn(self,user_name, password,url,dir):
+    def logIn(self,user_name, password,url):
         '''
         Log in by a user on the system
         '''
@@ -92,7 +92,7 @@ class Server():
             cursor = conn.execute("SELECT password FROM Users WHERE user_name = ?",(user_name))
             row=cursor.fetchone()
             if row[0] == password:
-                conn.execute('UPDATE Users SET state=CAST("TRUE" as bit), url=?, dir=? WHERE user_name=? ',( url, dir, user_name))
+                conn.execute('UPDATE Users SET state=CAST("TRUE" as bit), url=? WHERE user_name=? ',( url, user_name))
                 conn.commit()
                 conn.close()
                 return True

@@ -174,7 +174,6 @@ class GUIClient(Frame):
         '''
         global PORT
         global ADDRESS
-        global DIRECTORY
         global LOGIN
         global USERNAME
         global PASSWORD
@@ -186,7 +185,7 @@ class GUIClient(Frame):
             else:
                 user_name = self.userName.get()
                 password = self.password.get()
-                if self.main_server.logIn(user_name, password, 'http://'+ADDRESS+':'+str(PORT), DIRECTORY):
+                if self.main_server.logIn(user_name, password, 'http://'+ADDRESS+':'+str(PORT)):
                     LOGIN=True
                     USERNAME=user_name
                     PASSWORD=password

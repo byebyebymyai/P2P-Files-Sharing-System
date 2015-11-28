@@ -105,7 +105,6 @@ class Client(Cmd):
         '''
         global PORT
         global ADDRESS
-        global DIRECTORY
         global LOGIN
         global USERNAME
         global PASSWORD
@@ -114,7 +113,7 @@ class Client(Cmd):
         else:
             user_name = input('Input user name: ')
             password = input('Input password: ')
-            if self.main_server.logIn(user_name, password, 'http://'+ADDRESS+':'+str(PORT), DIRECTORY):
+            if self.main_server.logIn(user_name, password, 'http://'+ADDRESS+':'+str(PORT)):
                 LOGIN=True
                 USERNAME=user_name
                 PASSWORD=password
@@ -166,7 +165,7 @@ class Client(Cmd):
         global PASSWORD
         if LOGIN:
             self.main_server.logOut(USERNAME, PASSWORD)
-        print('Good bye-bye.')
+        print('Good bye.')
         sys.exit()
 
     def do_inquire(self,arg):
