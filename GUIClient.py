@@ -16,6 +16,7 @@ DIRECTORY='./'
 LOGIN=False
 USERNAME=None
 PASSWORD=None
+START=False
 
 class GUIClient(Frame):
     def __init__(self, master=None):
@@ -88,6 +89,13 @@ class GUIClient(Frame):
         self.directory.grid(sticky=W+N,row=10,column=3)
 
     def init(self):
+        global LOGIN
+        global USERNAME
+        global PASSWORD
+        
+        LOGIN=False
+        USERNAME=None
+        PASSWORD=None
         self._path()
 
     def _path(self):
@@ -109,6 +117,8 @@ class GUIClient(Frame):
         '''
         # Try connect with main server.
         # Check it is a main server or not.
+        global START
+
         main_server_url=self.URL.get()
         try:
             self.main_server_url='http://'+main_server_url
@@ -116,6 +126,7 @@ class GUIClient(Frame):
             self.main_server.hello()
             self.text.insert(INSERT,'Connect with main server successfully.\n')
             self._start()
+            START=True
         except:
             self.onURLError()
 
@@ -130,24 +141,33 @@ class GUIClient(Frame):
         '''
         Registration by a user on the system.
         '''
-        user_name = self.userName.get()
-        password = self.password.get()
-        if self.main_server.registration(user_name, password):
-            self.text.insert(INSERT,'Registration success.\n')
+        global START
+
+        if START:
+            user_name = self.userName.get()
+            password = self.password.get()
+            if self.main_server.registration(user_name, password):
+                self.text.insert(INSERT,'Registration success.\n')
+            else:
+                self.onAccountError()
         else:
-            self.onAccountError()
+            self.onStartError()
 
     def remove(self):
         '''
         Removal by a user of themselves from the system.
         '''
-        user_name = self.userName.get()
-        password = self.password.get()
-        if self.main_server.removal(user_name, password):
-            self.text.insert(INSERT,'Removal success.\n')
-        else:
-            self.onAccountError()
+        global START
 
+        if START:
+            user_name = self.userName.get()
+            password = self.password.get()
+            if self.main_server.removal(user_name, password):
+                self.text.insert(INSERT,'Removal success.\n')
+            else:
+                self.onAccountError()
+        else:
+            self.onStartError()
     def logIn(self):
         '''
         Ability by a user to "log in" from the system.
@@ -158,18 +178,23 @@ class GUIClient(Frame):
         global LOGIN
         global USERNAME
         global PASSWORD
-        if LOGIN:
-            self.onLogInError()
-        else:
-            user_name = self.userName.get()
-            password = self.password.get()
-            if self.main_server.logIn(user_name, password, 'http://'+ADDRESS+':'+str(PORT), DIRECTORY):
-                LOGIN=True
-                USERNAME=user_name
-                PASSWORD=password
-                self.text.insert(INSERT,'Log in success.\n')
+        global START
+
+        if START:
+            if LOGIN:
+                self.onLogInError()
             else:
-                self.onAccountError()
+                user_name = self.userName.get()
+                password = self.password.get()
+                if self.main_server.logIn(user_name, password, 'http://'+ADDRESS+':'+str(PORT), DIRECTORY):
+                    LOGIN=True
+                    USERNAME=user_name
+                    PASSWORD=password
+                    self.text.insert(INSERT,'Log in success.\n')
+                else:
+                    self.onAccountError()
+        else:
+            self.onStartError()
 
     def logOut(self):
         '''
@@ -178,36 +203,46 @@ class GUIClient(Frame):
         global LOGIN
         global USERNAME
         global PASSWORD
-        if LOGIN:
-            if self.main_server.logOut(USERNAME, PASSWORD):
-                LOGIN=False
-                USERNAME=None
-                PASSWORD=None
-                self.text.insert(INSERT,'Log out success.\n')
+        global START
+
+        if START:
+            if LOGIN:
+                if self.main_server.logOut(USERNAME, PASSWORD):
+                    LOGIN=False
+                    USERNAME=None
+                    PASSWORD=None
+                    self.text.insert(INSERT,'Log out success.\n')
+                else:
+                    self.onAccountError()
             else:
-                self.onAccountError()
+                self.onLogOutError()
         else:
-            self.onLogOutError()
+            self.onStartError()
 
     def download(self):
         '''
         Used to make the Node find a file and download it.
         '''
         # client_url is the URL of the client which has file.
-        if LOGIN:
-            file_name=self.fileName.get()
-            if file_name == '':
-                self.onFileError()
+        global START
+
+        if START:
+            if LOGIN:
+                file_name=self.fileName.get()
+                if file_name == '':
+                    self.onFileError()
+                else:
+                    client_url=self._search(file_name)
+                    try :
+                        client=ServerProxy(client_url)
+                        self._fetch(file_name,client.send(file_name))
+                        self.text.insert(INSERT,'Download success.\n')
+                    except:
+                        self.text.insert(INSERT,'Cannot find file.\n')
             else:
-                client_url=self._search(file_name)
-                try :
-                    client=ServerProxy(client_url)
-                    self._fetch(file_name,client.send(file_name))
-                    self.text.insert(INSERT,'Download success.\n')
-                except:
-                    self.text.insert(INSERT,'Cannot find file.\n')
+                self.onLogOutError()
         else:
-            self.onLogOutError()
+            self.onStartError()
 
     def exit(self):
         '''
@@ -225,10 +260,14 @@ class GUIClient(Frame):
         '''
         Ability by a user to see what files are available to transfer in the local.
         '''
-        global DIRECTORY
-        files=os.listdir(DIRECTORY)
-        for file in files:
-            self.text.insert(INSERT,file+'\n')
+        global START
+        if START:
+            global DIRECTORY
+            files=os.listdir(DIRECTORY)
+            for file in files:
+                self.text.insert(INSERT,file+'\n')
+        else:
+            self.onStartError()
 
     def _search(self,file_name):
         '''
@@ -269,6 +308,9 @@ class GUIClient(Frame):
 
     def onLogOutError(self):
         showerror(title='Error',message='Did not log in,please log in first.')
+
+    def onStartError(self):
+        showerror(title='Error',message='Please start client.')
 
 
 class Server():
